@@ -1,0 +1,482 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Rajdhani', sans-serif;
+    background: linear-gradient(135deg, #000 0%, #1a1a1a 50%, #000 100%);
+    color: #fff;
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* Animated Stars Background */
+.stars-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.star {
+    position: absolute;
+    background: #fff;
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    animation: twinkle 3s infinite alternate;
+}
+
+.star:nth-child(odd) {
+    animation-delay: -1.5s;
+}
+
+.star.small {
+    width: 4px;
+    height: 4px;
+    animation-duration: 2s;
+}
+
+.star.medium {
+    width: 6px;
+    height: 6px;
+    animation-duration: 2.5s;
+}
+
+.star.large {
+    width: 8px;
+    height: 8px;
+    animation-duration: 3.5s;
+}
+
+@keyframes twinkle {
+    0% { opacity: 0.3; transform: scale(1); }
+    50% { opacity: 1; transform: scale(1.2); }
+    100% { opacity: 0.3; transform: scale(1); }
+}
+
+/* Main Content */
+.main-content {
+    position: relative;
+    z-index: 10;
+}
+
+/* Header */
+header {
+    padding: 20px 0;
+    background: rgba(0, 0, 0, 0.8);
+    backdrop-filter: blur(10px);
+    border-bottom: 2px solid #333;
+}
+
+nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.logo {
+    font-family: 'Orbitron', monospace;
+    font-size: 2rem;
+    font-weight: 900;
+    background: linear-gradient(45deg, #fff, #ccc, #fff);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 30px;
+}
+
+.nav-links a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.nav-links a:hover {
+    color: #ccc;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, #fff, #ccc);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* Hero Section */
+.hero {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 40px 20px;
+    background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+}
+
+.hero-content h1 {
+    font-family: 'Orbitron', monospace;
+    font-size: 4rem;
+    font-weight: 900;
+    margin-bottom: 20px;
+    background: linear-gradient(45deg, #fff, #999, #fff, #ccc);
+    background-size: 300% 300%;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 4s ease-in-out infinite;
+    text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+}
+
+.hero-content p {
+    font-size: 1.3rem;
+    margin-bottom: 30px;
+    color: #ccc;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+@keyframes gradientShift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 15px 40px;
+    background: linear-gradient(45deg, #333, #666, #333);
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    border: 2px solid #666;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.cta-button:hover {
+    background: linear-gradient(45deg, #666, #999, #666);
+    border-color: #999;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+/* Products Section */
+.products-section {
+    padding: 80px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.section-title {
+    font-family: 'Orbitron', monospace;
+    font-size: 2.5rem;
+    text-align: center;
+    margin-bottom: 50px;
+    color: #fff;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.products-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    margin-bottom: 50px;
+}
+
+.product-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.3));
+    border: 1px solid #333;
+    padding: 25px;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.product-card:hover {
+    border-color: #666;
+    box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+    transform: translateY(-5px);
+}
+
+.product-image {
+    width: 100%;
+    height: 250px;
+    background: linear-gradient(45deg, #333, #666);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ccc;
+    font-size: 1.1rem;
+}
+
+.product-title {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    color: #fff;
+    font-weight: 600;
+}
+
+.product-description {
+    color: #ccc;
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.product-price {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 20px;
+}
+
+.buy-button {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(45deg, #333, #666);
+    color: #fff;
+    border: 1px solid #666;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.buy-button:hover {
+    background: linear-gradient(45deg, #666, #999);
+    border-color: #999;
+    box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+}
+
+/* Payment Section */
+.payment-section {
+    background: rgba(0, 0, 0, 0.5);
+    padding: 60px 20px;
+    text-align: center;
+    border-top: 2px solid #333;
+}
+
+.payment-content {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.stripe-placeholder {
+    background: linear-gradient(45deg, #333, #666);
+    padding: 40px;
+    border: 2px dashed #666;
+    margin: 30px 0;
+    font-size: 1.1rem;
+    color: #ccc;
+}
+
+/* Footer */
+footer {
+    background: #000;
+    padding: 40px 20px;
+    text-align: center;
+    border-top: 2px solid #333;
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Additional Sections Styles */
+.content-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.about-section, .contact-section, .terms-section, .privacy-section {
+    padding: 80px 20px;
+    border-top: 1px solid #333;
+}
+
+.about-section {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.about-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.about-text h3 {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.about-text p {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin-bottom: 20px;
+    color: #ccc;
+}
+
+.content-placeholder {
+    background: rgba(102, 102, 102, 0.2);
+    border: 2px dashed #666;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 5px;
+    font-style: italic;
+    color: #999;
+}
+
+.contact-grid {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+.contact-info h3, .contact-form h3 {
+    font-family: 'Orbitron', monospace;
+    font-size: 1.3rem;
+    margin-bottom: 30px;
+    color: #fff;
+}
+
+.contact-item {
+    margin-bottom: 25px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid #333;
+}
+
+.contact-item h4 {
+    color: #fff;
+    margin-bottom: 8px;
+    font-size: 1rem;
+}
+
+.contact-item p {
+    color: #ccc;
+    margin-bottom: 10px;
+}
+
+.contact-form-element {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.contact-form-element input,
+.contact-form-element textarea {
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid #666;
+    color: #fff;
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1rem;
+}
+
+.contact-form-element input::placeholder,
+.contact-form-element textarea::placeholder {
+    color: #999;
+}
+
+.contact-form-element input:focus,
+.contact-form-element textarea:focus {
+    outline: none;
+    border-color: #999;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+}
+
+.legal-content {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.legal-section {
+    margin: 30px 0;
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.03);
+    border-left: 3px solid #666;
+}
+
+.legal-section h3 {
+    font-family: 'Orbitron', monospace;
+    color: #fff;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+}
+
+.legal-section p, .placeholder-text {
+    color: #ccc;
+    line-height: 1.6;
+}
+
+.footer-links {
+    margin-top: 15px;
+}
+
+.footer-links a {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+    color: #fff;
+}
+
+/* Responsive for new sections */
+@media (max-width: 768px) {
+    .nav-links {
+        flex-wrap: wrap;
+        gap: 15px;
+    }
+    
+    .nav-links a {
+        font-size: 0.9rem;
+    }
+}
+@media (max-width: 768px) {
+    .nav-links {
+        display: none;
+    }
+    
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .logo {
+        font-size: 1.5rem;
+    }
+}

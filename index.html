@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CRXSHED | Y2K Jewelry</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: 'Rajdhani', sans-serif;
+      background: linear-gradient(135deg, #000 0%, #1a1a1a 50%, #000 100%);
+      color: #fff;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    /* Animated Stars Background */
+    .stars-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+    .star {
+      position: absolute;
+      background: #fff;
+      clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+      animation: twinkle 3s infinite alternate;
+    }
+    .star:nth-child(odd) {
+      animation-delay: -1.5s;
+    }
+    .star.small {
+      width: 4px;
+      height: 4px;
+      animation-duration: 2s;
+    }
+    .star.medium {
+      width: 6px;
+      height: 6px;
+      animation-duration: 2.5s;
+    }
+    .star.large {
+      width: 8px;
+      height: 8px;
+      animation-duration: 3.5s;
+    }
+    @keyframes twinkle {
+      0% { opacity: 0.3; transform: scale(1); }
+      50% { opacity: 1; transform: scale(1.2); }
+      100% { opacity: 0.3; transform: scale(1); }
+    }
+
+    /* Cookie Banner Styles */
+    .cookie-banner {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(26, 26, 26, 0.95));
+      backdrop-filter: blur(15px);
+      border-top: 2px solid #333;
+      padding: 20px;
+      z-index: 1000;
+      transform: translateY(100%);
+      transition: transform 0.5s ease-in-out;
+    }
+    .cookie-banner.show {
+      transform: translateY(0);
+    }
+    .cookie-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .cookie-text {
+      flex: 1;
+      min-width: 300px;
+    }
+    .cookie-text p {
+      color: #ccc;
+      line-height: 1.5;
+      margin-bottom: 10px;
+    }
+    .cookie-text a {
+      color: #fff;
+      text-decoration: underline;
+    }
+    .cookie-buttons {
+      display: flex;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+    .cookie-btn {
+      padding: 12px 24px;
+      border: 1px solid #666;
+      background: linear-gradient(45deg, #333, #666);
+      color: #fff;
+      cursor: pointer;
+      font-family: 'Rajdhani', sans-serif;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .cookie-btn:hover {
+      background: linear-gradient(45deg, #666, #999);
+      border-color: #999;
+      box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+    }
+    .cookie-btn.accept {
+      background: linear-gradient(45deg, #4CAF50, #45a049);
+      border-color: #4CAF50;
+    }
+    .cookie-btn.accept:hover {
+      background: linear-gradient(45deg, #45a049, #3d8b40);
+    }
+
+    /* Cookie Settings Modal */
+    .cookie-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      z-index: 1001;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .cookie-modal.show {
+      display: flex;
+    }
+    .modal-content {
+      background: linear-gradient(135deg, #1a1a1a, #000);
+      border: 2px solid #333;
+      padding: 30px;
+      max-width: 600px;
+      width: 100%;
+      max-height: 80vh;
+      overflow-y: auto;
+    }
+    .modal-header {
+      font-family: 'Orbitron', monospace;
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      color: #fff;
+      text-align: center;
+    }
+    .cookie-category {
+      margin-bottom: 25px;
+      padding: 15px;
+      border: 1px solid #333;
+      background: rgba(255, 255, 255, 0.05);
+    }
+    .category-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+    .category-title {
+      font-weight: 600;
+      font-size: 1.2rem;
+      color: #fff;
+    }
+    .category-description {
+      color: #ccc;
+      font-size: 0.9rem;
+      line-height: 1.4;
+    }
+    .toggle-switch {
+      position: relative;
+      width: 50px;
+      height: 25px;
+      background: #333;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .toggle-switch.active {
+      background: #4CAF50;
+    }
+    .toggle-switch::after {
+      content: '';
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 21px;
+      height: 21px;
+      background: #fff;
+      border-radius: 50%;
+      transition: transform 0.3s;
+    }
+    .toggle-switch.active::after {
+      transform: translateX(25px);
+    }
+    .modal-buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-top: 30px;
+    }
+
+    /* Main Content */
+    .main-content {
+      position: relative;
+      z-index: 10;
+    }
+
+    /* Header */
+    header {
+      padding: 20px 0;
+      background: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(10px);
+      border-bottom: 2px solid #333;
+    }
+    nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 20px;
+    }
+    .logo {
+      font-family: 'Orbitron', monospace;
+      font-size: 2rem;
+      font-weight: 900;
+      background: linear-gradient(45deg, #fff, #ccc, #fff);
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    }
+    .nav-links {
+      display: flex;
+      list-style: none;
+      gap: 30px;
+    }
+    .nav-links a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 1.1rem;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    .nav-links a:hover {
+      color: #ccc;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: linear-gradient(90deg, #fff, #ccc);
+      transition: width 0.3s ease;
+    }
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* Hero Section */
+    .hero {
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 40px 20px;
+      background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.1) 0%, transparent 70%);
+    }
+    .hero-content h1 {
+      font-family: 'Orbitron', monospace;
+      font-size: 4rem;
+      font-weight: 900;
+      margin-bottom: 20px;
+      background: linear-gradient(45deg, #fff, #999, #fff, #ccc);
+      background-size: 300% 300%;
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      animation: gradientShift 4s ease-in-out infinite;
+      text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+    }
+    .hero-content p {
+      font-size: 1.3rem;
+      margin-bottom: 30px;
+      color: #ccc;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+    @keyframes gradientShift {
+      0%, 100% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+    }
+    .cta-button {
+      display: inline-block;
+      padding: 15px 40px;
+      background: linear-gradient(45deg, #333, #666, #333);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 1.1rem;
+      border: 2px solid #666;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .cta-button:hover {
+      background: linear-gradient(45deg, #666, #999, #666);
+      border-color: #999;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+      transform: translateY(-2px);
+    }
+
+    /* Products Section */
+    .products-section {
+      padding: 80px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section-title {
+      font-family: 'Orbitron', monospace;
+      font-size: 2.5rem;
+      text-align: center;
+      margin-bottom: 50px;
+      color: #fff;
+      text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    }
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin-bottom: 50px;
+    }
+    .product-card {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(0, 0, 0, 0.3));
+      border: 1px solid #333;
+      padding: 25px;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+    .product-card:hover {
+      border-color: #666;
+      box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+      transform: translateY(-5px);
+    }
+    .product-image {
+      width: 100%;
+      height: 250px;
+      background: linear-gradient(45deg, #333, #666);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #ccc;
+      font-size: 1.1rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .product-slider {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+    .product-slider img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1s ease;
+    }
+    .product-slider img.active {
+      opacity: 1;
+    }
+
+    .product-title {
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      color: #fff;
+      font-weight: 600;
+    }
+    .product-description {
+      color: #ccc;
+      margin-bottom: 15px;
+      line-height: 1.5;
+    }
+    .product-price {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 20px;
+    }
+    .buy-button {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(45deg, #333, #666);
+      color: #fff;
+      border: 1px solid #666;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    .buy-button:hover {
+      background: linear-gradient(45deg, #666, #999);
+      border-color: #999;
+      box-shadow: 0 5px 15px rgba(255, 255, 255, 0.2);
+    }
+
+    /* Footer */
+    footer {
+      background: #000;
+      padding: 40px 20px;
+      text-align: center;
+      border-top: 2px solid #333;
+    }
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .footer-links {
+      margin-top: 15px;
+    }
+    .footer-links a {
+      color: #ccc;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    .footer-links a:hover {
+      color: #fff;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav-links {
+        flex-wrap: wrap;
+        gap: 15px;
+      }
+      .nav-links a {
+        font-size: 0.9rem;
+      }
+      .cookie-content {
+        flex-direction: column;
+        text-align: center;
+      }
+      .cookie-buttons {
+        justify-content: center;
+      }
+      .modal-content {
+        margin: 10px;
+      }
+    }
+    .customer-photos {
+      margin-top: 60px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 320px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .customer-slider {
+      position: relative;
+      width: 800px;
+      height: 300px;
+    }
+
+    .customer-slider img {
+      position: absolute;
+      width: 300px;
+      height: 300px;
+      object-fit: cover;
+      transition: all 1s ease;
+      border-radius: 10px;
+    }
+
+    .customer-slider img.left {
+      left: 0;
+      opacity: 0.5;
+      transform: rotate(-10deg) scale(0.9);
+      z-index: 1;
+    }
+
+    .customer-slider img.center {
+      left: 250px;
+      opacity: 1;
+      z-index: 3;
+      transform: scale(1);
+    }
+
+    .customer-slider img.right {
+      left: 500px;
+      opacity: 0.5;
+      transform: rotate(10deg) scale(0.9);
+      z-index: 1;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="stars-container" id="starsContainer"></div>
+  <div class="main-content">
+    <!-- HEADER -->
+    <header>
+      <nav>
+        <div class="logo">CRXSHED</div>
+        <ul class="nav-links">
+          <li><a href="#home">Home</a></li>
+          <li><a href="#products">Produkty</a></li>
+          <li><a href="regulamin.html">Regulamin</a></li>
+          <li><a href="polityka_prywatnosci.html">Prywatność</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="home">
+      <div class="hero-content">
+        <h1>CRXSHED</h1>
+        <p>Minimalistyczne naszyjniki tworzone własnoręcznie od serca i z pasją. Każdy element łączy estetykę Y2K z osobistym podejściem.</p>
+        <a href="#products" class="cta-button">Zobacz Kolekcję</a>
+      </div>
+    </section>
+
+    <!-- PRODUCTS SECTION -->
+    <section class="products-section" id="products">
+      <h2 class="section-title">NASZE NASZYJNIKI</h2>
+      <div class="products-grid" id="productsGrid"></div>
+
+      <a class="cta-button" style="margin-left: 39%;">Nowy Drop Wkrótce</a>
+    </section>
+    <section class="customer-photos">
+      <div class="customer-slider">
+        <img src="klienci/1.jpg" class="left">
+        <img src="klienci/2.jpg" class="center">
+        <img src="klienci/3.jpg" class="right">
+      </div>
+    </section><br>
+      <p style="margin-left: 39%;">Jeżeli chcesz się tutaj pojawić wyślij zdjęcie na: kontakt@crxshed.pl</p><br>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-content">
+        <p>© 2025 CRXSHED. Wszystkie prawa zastrzeżone.</p>
+        <p>Minimalistyczne naszyjniki | Tworzone własnoręcznie od serca</p>
+        <div class="footer-links">
+          <a href="regulamin.html">Regulamin</a> |
+          <a href="polityka_prywatnosci.html">Polityka Prywatności</a> |
+          <a href="#" onclick="showCookieSettings()">Ustawienia Cookies</a>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <!-- COOKIE BANNER -->
+  <div class="cookie-banner" id="cookieBanner">
+    <div class="cookie-content">
+      <div class="cookie-text">
+        <p><strong>Ta strona używa plików cookies</strong></p>
+        <p>Używamy plików cookies aby poprawić Twoje doświadczenia na naszej stronie. Niektóre są niezbędne dla działania strony, inne pomagają nam analizować ruch i personalizować treści. <a href="polityka_prywatnosci.html">Dowiedz się więcej</a></p>
+      </div>
+      <div class="cookie-buttons">
+        <button class="cookie-btn" onclick="showCookieSettings()">Ustawienia</button>
+        <button class="cookie-btn" onclick="rejectCookies()">Odrzuć</button>
+        <button class="cookie-btn accept" onclick="acceptCookies()">Akceptuj wszystkie</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- COOKIE SETTINGS MODAL -->
+  <div class="cookie-modal" id="cookieModal">
+    <div class="modal-content">
+      <h2 class="modal-header">Ustawienia Cookies</h2>
+      
+      <div class="cookie-category">
+        <div class="category-header">
+          <div class="category-title">Niezbędne</div>
+          <div class="toggle-switch active" data-always-on="true">
+            <input type="hidden" value="necessary" checked disabled>
+          </div>
+        </div>
+        <div class="category-description">
+          Te pliki cookies są niezbędne dla prawidłowego działania strony internetowej i nie mogą być wyłączone.
+        </div>
+      </div>
+
+      <div class="cookie-category">
+        <div class="category-header">
+          <div class="category-title">Analityczne</div>
+          <div class="toggle-switch" data-category="analytics">
+            <input type="hidden" value="analytics">
+          </div>
+        </div>
+        <div class="category-description">
+          Pozwalają nam analizować sposób korzystania ze strony, aby mogliśmy mierzyć i poprawiać jej wydajność.
+        </div>
+      </div>
+
+      <div class="cookie-category">
+        <div class="category-header">
+          <div class="category-title">Marketingowe</div>
+          <div class="toggle-switch" data-category="marketing">
+            <input type="hidden" value="marketing">
+          </div>
+        </div>
+        <div class="category-description">
+          Używane do śledzenia użytkowników na stronach internetowych w celu wyświetlania reklam istotnych i angażujących.
+        </div>
+      </div>
+
+      <div class="cookie-category">
+        <div class="category-header">
+          <div class="category-title">Preferencje</div>
+          <div class="toggle-switch" data-category="preferences">
+            <input type="hidden" value="preferences">
+          </div>
+        </div>
+        <div class="category-description">
+          Pozwalają stronie zapamiętać informacje zmieniające sposób jej zachowania lub wyglądu.
+        </div>
+      </div>
+
+      <div class="modal-buttons">
+        <button class="cookie-btn" onclick="closeCookieModal()">Anuluj</button>
+        <button class="cookie-btn" onclick="saveSelectedCookies()">Zapisz ustawienia</button>
+        <button class="cookie-btn accept" onclick="acceptAllFromModal()">Akceptuj wszystkie</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Cookie Management System
+    class CookieManager {
+      constructor() {
+        this.cookieSettings = {
+          necessary: true,
+          analytics: false,
+          marketing: false,
+          preferences: false
+        };
+        this.cookieName = 'crxshed_cookie_consent';
+        this.init();
+      }
+
+      init() {
+        this.loadSavedSettings();
+        this.initializeToggles();
+        
+        // Show banner if no consent given
+        if (!this.hasConsent()) {
+          this.showBanner();
+        }
+        
+        // Load appropriate scripts based on consent
+        this.loadScripts();
+      }
+
+      hasConsent() {
+        return localStorage.getItem(this.cookieName) !== null;
+      }
+
+      loadSavedSettings() {
+        const saved = localStorage.getItem(this.cookieName);
+        if (saved) {
+          try {
+            this.cookieSettings = { ...this.cookieSettings, ...JSON.parse(saved) };
+          } catch (e) {
+            console.warn('Failed to parse saved cookie settings');
+          }
+        }
+      }
+
+      saveSettings() {
+        localStorage.setItem(this.cookieName, JSON.stringify(this.cookieSettings));
+      }
+
+      initializeToggles() {
+        document.querySelectorAll('.toggle-switch').forEach(toggle => {
+          const category = toggle.dataset.category;
+          if (category && this.cookieSettings[category]) {
+            toggle.classList.add('active');
+          }
+
+          if (!toggle.dataset.alwaysOn) {
+            toggle.addEventListener('click', () => {
+              toggle.classList.toggle('active');
+            });
+          }
+        });
+      }
+
+      showBanner() {
+        setTimeout(() => {
+          document.getElementById('cookieBanner').classList.add('show');
+        }, 1000);
+      }
+
+      hideBanner() {
+        document.getElementById('cookieBanner').classList.remove('show');
+      }
+
+      acceptAll() {
+        this.cookieSettings = {
+          necessary: true,
+          analytics: true,
+          marketing: true,
+          preferences: true
+        };
+        this.saveSettings();
+        this.hideBanner();
+        this.loadScripts();
+        this.showNotification('Wszystkie cookies zostały zaakceptowane');
+      }
+
+      rejectAll() {
+        this.cookieSettings = {
+          necessary: true,
+          analytics: false,
+          marketing: false,
+          preferences: false
+        };
+        this.saveSettings();
+        this.hideBanner();
+        this.showNotification('Zaakceptowano tylko niezbędne cookies');
+      }
+
+      saveSelected() {
+        const newSettings = {
+          necessary: true,
+          analytics: false,
+          marketing: false,
+          preferences: false
+        };
+
+        document.querySelectorAll('.toggle-switch').forEach(toggle => {
+          const category = toggle.dataset.category;
+          if (category) {
+            newSettings[category] = toggle.classList.contains('active');
+          }
+        });
+
+        this.cookieSettings = newSettings;
+        this.saveSettings();
+        this.hideBanner();
+        this.closeModal();
+        this.loadScripts();
+        this.showNotification('Ustawienia cookies zostały zapisane');
+      }
+
+      showModal() {
+        document.getElementById('cookieModal').classList.add('show');
+        this.updateModalToggles();
+      }
+
+      closeModal() {
+        document.getElementById('cookieModal').classList.remove('show');
+      }
+
+      updateModalToggles() {
+        document.querySelectorAll('.toggle-switch').forEach(toggle => {
+          const category = toggle.dataset.category;
+          if (category) {
+            if (this.cookieSettings[category]) {
+              toggle.classList.add('active');
+            } else {
+              toggle.classList.remove('active');
+            }
+          }
+        });
+      }
+
+      loadScripts() {
+        // Analytics scripts
+        if (this.cookieSettings.analytics) {
+          this.loadAnalytics();
+        }
+
+        // Marketing scripts
+        if (this.cookieSettings.marketing) {
+          this.loadMarketing();
+        }
+
+        // Preferences
+        if (this.cookieSettings.preferences) {
+          this.loadPreferences();
+        }
+      }
+
+      loadAnalytics() {
+        // Example: Google Analytics
+        console.log('Loading analytics scripts...');
+        // gtag('config', 'GA_MEASUREMENT_ID');
+      }
+
+      loadMarketing() {
+        // Example: Facebook Pixel, Google Ads
+        console.log('Loading marketing scripts...');
+      }
+
+      loadPreferences() {
+        // Load user preference scripts
+        console.log('Loading preference scripts...');
+        this.applyUserPreferences();
+      }
+
+      applyUserPreferences() {
+        // Apply saved user preferences
+        const savedTheme = localStorage.getItem('crxshed_theme');
+        if (savedTheme) {
+          document.body.setAttribute('data-theme', savedTheme);
+        }
+      }
+
+      showNotification(message) {
+        // Create temporary notification
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          background: linear-gradient(45deg, #4CAF50, #45a049);
+          color: white;
+          padding: 15px 20px;
+          border-radius: 5px;
+          z-index: 1002;
+          font-family: 'Rajdhani', sans-serif;
+          font-weight: 600;
+          box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        `;
+        notification.textContent = message;
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+          notification.remove();
+        }, 3000);
+      }
+    }
+
+    // Initialize Cookie Manager
+    const cookieManager = new CookieManager();
+
+    // Global functions for cookie actions
+    function acceptCookies() {
+      cookieManager.acceptAll();
+    }
+
+    function rejectCookies() {
+      cookieManager.rejectAll();
+    }
+
+    function showCookieSettings() {
+      cookieManager.showModal();
+    }
+
+    function closeCookieModal() {
+      cookieManager.closeModal();
+    }
+
+    function saveSelectedCookies() {
+      cookieManager.saveSelected();
+    }
+
+    function acceptAllFromModal() {
+      cookieManager.acceptAll();
+      cookieManager.closeModal();
+    }
+
+    // Generate animated stars
+    function createStars() {
+      const container = document.getElementById('starsContainer');
+      const starCount = 50;
+      for (let i = 0; i < starCount; i++) {
+        const star = document.createElement('div');
+        star.className = `star ${['small', 'medium', 'large'][Math.floor(Math.random() * 3)]}`;
+        star.style.left = Math.random() * 100 + '%';
+        star.style.top = Math.random() * 100 + '%';
+        star.style.animationDelay = Math.random() * 3 + 's';
+        container.appendChild(star);
+      }
+    }
+
+    const sampleProducts = [
+      {
+        name: "Silent Cross",
+        description: "Minimalistyczny, gotycki naszyjnik dla tych, którzy lubią ciszę z przekazem. Lekki, unisex, pasuje do wszystkiego — symbol wiary, stylu albo czystej przekory.",
+        price: "79,99 PLN",
+        images: ["3(1).jpg", "3(2).jpg", "3(3).jpg"],
+        link: "https://buy.stripe.com/28EaEY7VMbsJ9Hmb5Q9IQ01"
+      },
+      {
+        name: "StarFire Cross",
+        description: "Gotycki miks gwiazdy i krzyża. Idealny na imprezę, RPGowy vibe albo po prostu dzień, kiedy chcesz błyszczeć mrokiem. Unisex, dramatyczny, robi wrażenie.",
+        price: "69.99 PLN",
+        images: ["2(1).jpg", "2(2).jpg", "2(3).jpg"],
+        link: "https://buy.stripe.com/dRm9AU6RIfIZ9Hmfm69IQ02"
+      },
+      {
+        name: "Infernal Cross",
+        description: "Bogato zdobiony, gotycki naszyjnik z piekielnym pazurem. Relikt z katedry dla tych, którzy nie lubią być grzeczni. Unisex, wyrazisty, cholernie stylowy.",
+        price: "99.99 PLN",
+        images: ["1(1).jpg", "1(2).jpg", "1(3).jpg"],
+        link: "https://buy.stripe.com/28EaEY0tk2Wd6vafm69IQ03"
+      }
+    ];
+
+
+    function loadProducts() {
+      const grid = document.getElementById('productsGrid');
+      sampleProducts.forEach((product, productIndex) => {
+        const card = document.createElement('div');
+        card.className = 'product-card';
+        const sliderId = `product-slider-${productIndex}`;
+        const imagesHtml = product.images.map((img, index) => `<img src="${img}" alt="${product.name}" class="${index === 0 ? 'active' : ''}" />`).join('');
+        card.innerHTML = `
+          <div class="product-image">
+            <div class="product-slider" id="${sliderId}">
+              ${imagesHtml}
+            </div>
+          </div>
+          <h3 class="product-title">${product.name}</h3>
+          <p class="product-description">${product.description}</p>
+          <div class="product-price">${product.price}</div>
+          <button class="buy-button" onclick="redirectToPayment('${product.link}')">Kup Teraz</button>
+        `;
+        grid.appendChild(card);
+        startProductSlider(sliderId, product.images.length);
+      });
+    }
+
+    function startProductSlider(sliderId, imageCount) {
+      const slider = document.getElementById(sliderId);
+      let currentIndex = 0;
+      setInterval(() => {
+        const images = slider.querySelectorAll('img');
+        images[currentIndex].classList.remove('active');
+        currentIndex = (currentIndex + 1) % imageCount;
+        images[currentIndex].classList.add('active');
+      }, 3000); // Change image every 3 seconds
+    }
+
+    function redirectToPayment(link) {
+      // Track purchase attempt if analytics enabled
+      if (cookieManager.cookieSettings.analytics) {
+        console.log('Tracking purchase attempt:', link);
+        // gtag('event', 'purchase_attempt', { 'product_link': link });
+      }
+      window.location.href = link;
+    }
+
+    // Smooth scrolling for navigation
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Close modal when clicking outside
+    document.getElementById('cookieModal').addEventListener('click', function(e) {
+      if (e.target === this) {
+        closeCookieModal();
+      }
+    });
+
+    // Initialize
+    createStars();
+    loadProducts();
+    const customerImages = [
+      '1.jpg', '2.jpg', '3.jpg',
+      '4.jpg', '5.jpg', '6.jpg',
+      '7.jpg', '8.jpg', '9.jpg', 
+      '10.jpg', '11.jpg',
+    ]
+    let currentIndex = 0;
+
+    function updateCustomerSlider() {
+      const leftIndex = (currentIndex) % customerImages.length;
+      const centerIndex = (currentIndex + 1) % customerImages.length;
+      const rightIndex = (currentIndex + 2) % customerImages.length;
+
+      const slider = document.querySelector('.customer-slider');
+      slider.innerHTML = `
+        <img src="${customerImages[leftIndex]}" class="left">
+        <img src="${customerImages[centerIndex]}" class="center">
+        <img src="${customerImages[rightIndex]}" class="right">
+      `;
+
+      currentIndex = (currentIndex + 1) % customerImages.length;
+    }
+
+    setInterval(updateCustomerSlider, 4000);
+    updateCustomerSlider();
+  </script>
+</body>
+</html>
